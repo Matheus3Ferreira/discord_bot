@@ -6,8 +6,8 @@ module.exports = {
     .setDescription("Return an embed"),
   async execute(interaction, client) {
     const embed = new EmbedBuilder()
-      .setTitle("This is an embed")
-      .setDescription("This is an cool description")
+      .setTitle("FIXA T8")
+      .setDescription("Conteúdo PVE fixa t8 para farm de fama")
       .setColor(0x18e1ee)
       .setImage(client.user.displayAvatarURL())
       .setThumbnail(client.user.displayAvatarURL())
@@ -23,13 +23,23 @@ module.exports = {
       .setURL("http://google.com")
       .addFields([
         {
-          name: "Field 1",
-          value: "Value 1",
+          name: "Mapa",
+          value: "Thunderrock Ascent",
+          inline: false,
+        },
+        {
+          name: "Local de partida",
+          value: "Lymhust portal",
           inline: true,
         },
         {
-          name: "Field 2",
-          value: "Value 2",
+          name: "Horário",
+          value: "19:30",
+          inline: true,
+        },
+        {
+          name: "IP",
+          value: "1250",
           inline: false,
         },
       ]);
