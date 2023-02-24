@@ -1,4 +1,5 @@
 // This interactionCreate is when user make some interaction, and redirect to correct interaction.
+const { InteractionType } = require("discord.js");
 
 module.exports = {
   //Some input
@@ -37,6 +38,17 @@ module.exports = {
       if (!menu) return new Error("There is not code for this select menu");
       try {
         await menu.execute(interaction, client);
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (interaction.type == InteractionType.ModalSubmit) {
+      const { modals } = client;
+      const { customId } = interaction;
+      const modal = modals.get(customId);
+      if (!modal) return new Error("There is not code for this modal");
+
+      try {
+        await modal.execute(interaction, client);
       } catch (error) {
         console.log(error);
       }
