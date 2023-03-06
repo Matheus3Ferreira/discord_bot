@@ -6,8 +6,8 @@
 - 4° stage => Select menu
 - 5° stage => Modal
 - 6° stage => Context Menu Builder
-- **7° stage => Reactions**
-- 8° stage => Permissions
+- 7° stage => Reactions
+- **8° stage => Permissions**
 - 9° stage => Autocomplete
 - 10° stage => MongoDB
 - 11° stage => Moderation
