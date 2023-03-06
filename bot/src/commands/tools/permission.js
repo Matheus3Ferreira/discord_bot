@@ -7,8 +7,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("permission")
-    .setDescription("This commands requires permission")
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+    .setDescription("This commands requires permission"),
   async execute(interaction, client) {
     const { roles } = interaction.member;
     const role = await interaction.guild.roles
@@ -30,34 +29,33 @@ module.exports = {
       await interaction.editReply({
         content: `Removed ${role.name} role from you.`,
       });
+      await roles.add(testRole).catch(console.error);
+
+      await testRole
+        .setPermissions([PermissionsBitField.Flags.BanMembers])
+        .catch(console.error);
+      console.log(interaction);
+      const channel = await interaction.guild.channels.create({
+        name: interaction.user.username + " room",
+        permissionOverwrites: [
+          {
+            id: interaction.guild.id,
+            deny: [PermissionsBitField.Flags.ViewChannel],
+          },
+          {
+            id: testRole.id,
+            allow: [PermissionsBitField.Flags.ViewChannel],
+          },
+        ],
+      });
+
+      await channel.permissionOverwrites
+        .edit(testRole.id, { SendMessages: false })
+        .catch(console.error);
     } else {
       await interaction.reply({
         content: `You do not have the ${role.name} role.`,
       });
     }
-
-    await roles.add(testRole).catch(console.error);
-
-    await testRole
-      .setPermissions([PermissionsBitField.Flags.BanMembers])
-      .catch(console.error);
-
-    const channel = await interaction.guild.channels.create({
-      name: `test`,
-      permissionOverwrites: [
-        {
-          id: interaction.guild.id,
-          deny: [PermissionsBitField.Flags.ViewChannel],
-        },
-        {
-          id: testRole.id,
-          allow: [PermissionsBitField.Flags.ViewChannel],
-        },
-      ],
-    });
-
-    await channel.permissionOverwrites
-      .edit(testRole.id, { SendMessages: false })
-      .catch(console.error);
   },
 };
