@@ -34,7 +34,8 @@ module.exports = {
       await testRole
         .setPermissions([PermissionsBitField.Flags.BanMembers])
         .catch(console.error);
-      console.log(interaction);
+
+      // Create channel
       const channel = await interaction.guild.channels.create({
         name: interaction.user.username + " room",
         permissionOverwrites: [
