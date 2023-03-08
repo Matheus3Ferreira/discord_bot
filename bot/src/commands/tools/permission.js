@@ -7,7 +7,8 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("permission")
-    .setDescription("This commands requires permission"),
+    .setDescription("This commands requires permission")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator), // Add permission to call this command.
   async execute(interaction, client) {
     const { roles } = interaction.member;
     const role = await interaction.guild.roles
@@ -19,12 +20,14 @@ module.exports = {
         permissions: [PermissionsBitField.Flags.KickMembers],
       })
       .catch(console.error);
-    // Has role
+
+    // if has role
     if (roles.cache.has("1082413585306755173")) {
       await interaction.deferReply({
         fetchReply: true,
       });
 
+      // remove role
       await roles.remove(role).catch(console.error);
       await interaction.editReply({
         content: `Removed ${role.name} role from you.`,
